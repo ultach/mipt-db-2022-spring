@@ -1,0 +1,35 @@
+comment: 'Init database'
+main_tasks: [
+    - comment: 'Create database'
+        subtasks:
+          - type: 'complex_sql'
+            file_location: './project/sql/ddl.sql'
+          - type: 'simple_sql'
+            file_location: './project/sql/fill.sql'
+    - comment: 'Queries from "crud.sql"'
+          subtasks:
+            - type: 'simple_sql'
+              file_location: './project/sql/crud.sql'
+
+    - comment: 'Queries from "views.sql"'
+          subtasks:
+            - type: 'simple_sql'
+              file_location: './project/sql/views.sql'
+
+    - comment: 'Queries from "queries.sql"'
+        subtasks:
+          - type: 'simple_sql'
+            file_location: './project/sql/queries.sql'
+
+    - comment: 'Generate & fetch data'
+        subtasks:
+          - type: 'shell'
+            file_location: './project/scripts/python/run.sh'
+
+]
+
+after_each:
+  - comment: 'Echo goodbye in console'
+    subtasks:
+      - type: 'shell'
+        file_location: './project/scripts/bash/goodbye.sh'
